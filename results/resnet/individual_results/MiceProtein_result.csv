@@ -1,0 +1,2 @@
+dataset,model,accuracy,auc_ovo,gmean,cross_entropy,n_samples_train,n_samples_test,n_features,n_classes,tuning_time,training_time,prediction_time,total_time,hp_d,hp_d_hidden_factor,hp_n_layers,hp_hidden_dropout,hp_residual_dropout,hp_learning_rate,hp_batch_size,hp_epochs
+MiceProtein,resnet,1.0,1.0,1.0,0.015067756168508264,756,324,77,8,5354.07909154892,16.84350037574768,0.011284589767456055,5370.933876514435,512,4.323646972058734,10,0.1778976046973269,0.18698998490625918,1.1452211301313298e-05,128,136

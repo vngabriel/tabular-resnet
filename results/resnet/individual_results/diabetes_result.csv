@@ -1,0 +1,2 @@
+dataset,model,accuracy,auc_ovo,gmean,cross_entropy,n_samples_train,n_samples_test,n_features,n_classes,tuning_time,training_time,prediction_time,total_time,hp_d,hp_d_hidden_factor,hp_n_layers,hp_hidden_dropout,hp_residual_dropout,hp_learning_rate,hp_batch_size,hp_epochs
+diabetes,resnet,0.7835497835497836,0.874074074074074,0.6931766204658765,0.5058098161073805,537,231,8,2,485.3101134300232,0.31537866592407227,0.0007331371307373047,485.626225233078,128,3.468335578150428,2,0.4995948185903601,0.08493823160359984,2.1687768236505902e-05,256,101

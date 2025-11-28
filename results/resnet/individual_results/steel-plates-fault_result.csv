@@ -1,0 +1,2 @@
+dataset,model,accuracy,auc_ovo,gmean,cross_entropy,n_samples_train,n_samples_test,n_features,n_classes,tuning_time,training_time,prediction_time,total_time,hp_d,hp_d_hidden_factor,hp_n_layers,hp_hidden_dropout,hp_residual_dropout,hp_learning_rate,hp_batch_size,hp_epochs
+steel-plates-fault,resnet,0.7478559176672385,0.9540077055767866,0.8027536829872949,0.7581419588015957,1358,583,27,7,2177.6432735919952,0.3362147808074951,0.0011649131774902344,2177.98065328598,256,3.9242921433782283,2,0.30034928391679494,0.4329322291516323,0.008924108207819248,256,123

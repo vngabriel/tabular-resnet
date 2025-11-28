@@ -1,0 +1,2 @@
+dataset,model,accuracy,auc_ovo,gmean,cross_entropy,n_samples_train,n_samples_test,n_features,n_classes,tuning_time,training_time,prediction_time,total_time,hp_d,hp_d_hidden_factor,hp_n_layers,hp_hidden_dropout,hp_residual_dropout,hp_learning_rate,hp_batch_size,hp_epochs
+tic-tac-toe,resnet,0.9965277777777778,0.9998936170212765,0.99498743710662,0.014495355553265829,670,288,27,2,1036.8439571857452,2.439770221710205,0.004015922546386719,1039.2877433300018,512,4.892228722678056,3,0.04557881882413451,0.03936207928860028,0.0008021706379699085,128,159

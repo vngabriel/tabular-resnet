@@ -1,0 +1,2 @@
+dataset,model,accuracy,auc_ovo,gmean,cross_entropy,n_samples_train,n_samples_test,n_features,n_classes,tuning_time,training_time,prediction_time,total_time,hp_d,hp_d_hidden_factor,hp_n_layers,hp_hidden_dropout,hp_residual_dropout,hp_learning_rate,hp_batch_size,hp_epochs
+banknote-authentication,resnet,1.0,1.0,1.0,0.017180352817800556,960,412,4,2,2413.9259254932404,1.02439546585083,0.0015439987182617188,2414.9518649578094,64,3.8778758791422523,5,0.49038209919230774,0.34241486929243165,0.00027720158198153483,128,40

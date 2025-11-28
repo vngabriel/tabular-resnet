@@ -1,0 +1,2 @@
+dataset,model,accuracy,auc_ovo,gmean,cross_entropy,n_samples_train,n_samples_test,n_features,n_classes,tuning_time,training_time,prediction_time,total_time,hp_d,hp_d_hidden_factor,hp_n_layers,hp_hidden_dropout,hp_residual_dropout,hp_learning_rate,hp_batch_size,hp_epochs
+climate-model-simulation-crashes,resnet,0.8950617283950617,0.9102316602316604,0.8434393643825034,0.31368853089429105,378,162,18,2,467.06761169433594,0.3524446487426758,0.0010106563568115234,467.4210669994354,512,1.445023114555651,3,0.06863452696561956,0.4171196735446927,0.0001922883998359619,256,59

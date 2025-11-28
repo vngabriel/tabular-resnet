@@ -1,0 +1,2 @@
+dataset,model,accuracy,auc_ovo,gmean,cross_entropy,n_samples_train,n_samples_test,n_features,n_classes,tuning_time,training_time,prediction_time,total_time,hp_d,hp_d_hidden_factor,hp_n_layers,hp_hidden_dropout,hp_residual_dropout,hp_learning_rate,hp_batch_size,hp_epochs
+dresses-sales,resnet,0.5,0.5863893450100346,0.44798806249896883,0.7483624119467004,350,150,141,2,576.755336523056,0.7425129413604736,0.0012695789337158203,577.4991190433502,256,4.708421746705769,5,0.09008699300455848,0.36284830921241956,1.4797219999249465e-05,32,137

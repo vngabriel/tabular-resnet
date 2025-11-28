@@ -1,0 +1,2 @@
+dataset,model,accuracy,auc_ovo,gmean,cross_entropy,n_samples_train,n_samples_test,n_features,n_classes,tuning_time,training_time,prediction_time,total_time,hp_d,hp_d_hidden_factor,hp_n_layers,hp_hidden_dropout,hp_residual_dropout,hp_learning_rate,hp_batch_size,hp_epochs
+qsar-biodeg,resnet,0.8769716088328076,0.9203827325322652,0.8677580338668458,0.3342904645303193,738,317,41,2,1781.8104946613312,4.696576118469238,0.0015900135040283203,1786.5086607933044,128,2.5729864627729686,6,0.32042016596789136,0.17918429275508574,1.4981021007483853e-05,64,97
