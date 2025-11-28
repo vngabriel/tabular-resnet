@@ -72,6 +72,10 @@ class TabularResNet(nn.Module):
     ResNet for tabular data as described in the paper:
     ResNet(x) = Prediction(ResNetBlock(...(ResNetBlock(Linear(x)))))
 
+    Code adapted from:
+    - https://arxiv.org/pdf/2106.11959
+    - https://github.com/yandex-research/rtdl-revisiting-models/blob/main/bin/resnet.py
+
     Architecture components:
     1. First linear layer to project to base dimension
     2. Stack of ResNet blocks
