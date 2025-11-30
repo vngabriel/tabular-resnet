@@ -18,7 +18,7 @@ import numpy as np
 import optuna
 from sklearn.model_selection import StratifiedKFold
 
-from metrics import calculate_all_metrics
+from evaluation.metrics import calculate_all_metrics
 
 # Import boosting libraries
 try:
@@ -263,7 +263,7 @@ class BoostingExperimentGPU:
 
             y_val_pred = fold_model.predict(X_val_fold)
 
-            from metrics import calculate_gmean
+            from evaluation.metrics import calculate_gmean
             fold_gmean = calculate_gmean(y_val_fold, y_val_pred)
             cv_scores.append(fold_gmean)
 
