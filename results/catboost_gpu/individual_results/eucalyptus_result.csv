@@ -1,0 +1,2 @@
+dataset,model,accuracy,auc_ovo,gmean,cross_entropy,n_samples_train,n_samples_test,n_features,n_classes,tuning_time,training_time,prediction_time,total_time,gpu_enabled,hp_iterations,hp_depth,hp_learning_rate,hp_l2_leaf_reg,hp_bagging_temperature,hp_min_data_in_leaf,hp_task_type,hp_devices
+eucalyptus,catboost,0.6606334841628959,0.9112313034188034,0.6051622464266322,0.756533378255338,515,221,91,5,1246.1852791309357,3.878146171569824,0.0069522857666015625,1250.070377588272,True,496,6,0.09706960713209668,2.308314290070444,0.5624488366318396,34,GPU,0

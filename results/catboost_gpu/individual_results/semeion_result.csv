@@ -1,0 +1,2 @@
+dataset,model,accuracy,auc_ovo,gmean,cross_entropy,n_samples_train,n_samples_test,n_features,n_classes,tuning_time,training_time,prediction_time,total_time,gpu_enabled,hp_iterations,hp_depth,hp_learning_rate,hp_l2_leaf_reg,hp_bagging_temperature,hp_min_data_in_leaf,hp_task_type,hp_devices,hp_boosting_type
+semeion,catboost,0.9435146443514645,0.9977962110366632,0.941972262762502,0.2046077761349988,1115,478,256,10,918.2117850780487,2.165748119354248,0.001993894577026367,920.37952709198,True,298,4,0.28759507017375047,3.016832810722147,0.20501879190616257,11,GPU,0,Plain

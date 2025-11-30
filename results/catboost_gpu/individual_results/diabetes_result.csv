@@ -1,0 +1,2 @@
+dataset,model,accuracy,auc_ovo,gmean,cross_entropy,n_samples_train,n_samples_test,n_features,n_classes,tuning_time,training_time,prediction_time,total_time,gpu_enabled,hp_iterations,hp_depth,hp_learning_rate,hp_l2_leaf_reg,hp_bagging_temperature,hp_min_data_in_leaf,hp_task_type,hp_devices
+diabetes,catboost,0.7662337662337663,0.8483127572016461,0.7184803349915343,0.45872044669412393,537,231,8,2,504.82460045814514,1.1943411827087402,0.000997304916381836,506.01993894577026,True,305,3,0.12609833389120095,7.941633505739114,0.3249626718181696,37,GPU,0

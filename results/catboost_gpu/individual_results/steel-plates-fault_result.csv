@@ -1,0 +1,2 @@
+dataset,model,accuracy,auc_ovo,gmean,cross_entropy,n_samples_train,n_samples_test,n_features,n_classes,tuning_time,training_time,prediction_time,total_time,gpu_enabled,hp_iterations,hp_depth,hp_learning_rate,hp_l2_leaf_reg,hp_bagging_temperature,hp_min_data_in_leaf,hp_task_type,hp_devices
+steel-plates-fault,catboost,0.7855917667238422,0.9677236752081244,0.7748599605194254,0.5443560312212515,1358,583,27,7,1854.846699476242,2.603464365005493,0.0009720325469970703,1857.4511358737946,True,335,7,0.11103566011368242,2.0130779996058923,0.5233286935540856,41,GPU,0

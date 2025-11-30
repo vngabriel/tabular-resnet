@@ -1,0 +1,2 @@
+dataset,model,accuracy,auc_ovo,gmean,cross_entropy,n_samples_train,n_samples_test,n_features,n_classes,tuning_time,training_time,prediction_time,total_time,gpu_enabled,hp_iterations,hp_depth,hp_learning_rate,hp_l2_leaf_reg,hp_bagging_temperature,hp_min_data_in_leaf,hp_task_type,hp_devices
+climate-model-simulation-crashes,catboost,0.9197530864197531,0.8672779922779923,0.4597716404803165,0.21690067065942575,378,162,18,2,1009.208080291748,1.5938127040863037,0.0,1010.8018929958344,True,233,9,0.2057411899326481,5.632005019565198,0.6502732236960761,7,GPU,0

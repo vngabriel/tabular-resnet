@@ -1,0 +1,2 @@
+dataset,model,accuracy,auc_ovo,gmean,cross_entropy,n_samples_train,n_samples_test,n_features,n_classes,tuning_time,training_time,prediction_time,total_time,gpu_enabled,hp_iterations,hp_depth,hp_learning_rate,hp_l2_leaf_reg,hp_bagging_temperature,hp_min_data_in_leaf,hp_task_type,hp_devices
+car,catboost,0.9807321772639692,0.9998079800451342,0.9816955774107551,0.08540744738647799,1209,519,21,4,1985.2525680065155,1.8298282623291016,0.003989219665527344,1987.0863854885101,True,373,3,0.09473927972610038,2.6734490067203267,0.158252688661779,34,GPU,0

@@ -1,0 +1,2 @@
+dataset,model,accuracy,auc_ovo,gmean,cross_entropy,n_samples_train,n_samples_test,n_features,n_classes,tuning_time,training_time,prediction_time,total_time,gpu_enabled,hp_iterations,hp_depth,hp_learning_rate,hp_l2_leaf_reg,hp_bagging_temperature,hp_min_data_in_leaf,hp_task_type,hp_devices
+breast-w,catboost,0.9428571428571428,0.9830917874396136,0.9398688537013076,0.14136823977502197,489,210,9,2,765.195981502533,1.648280143737793,0.0009970664978027344,766.8452587127686,True,364,5,0.021631523301351215,5.961832921746021,0.7194689697855631,22,GPU,0
