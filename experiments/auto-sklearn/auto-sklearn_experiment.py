@@ -519,81 +519,11 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from evaluation.metrics import calculate_all_metrics
 
-from pathlib import Path
-import warnings
-warnings.filterwarnings('ignore')
-
-# Funções de métricas CORRIGIDAS
-def calculate_accuracy(y_true: np.ndarray, y_pred: np.ndarray) -> float:
-    """Calculate classification accuracy"""
-    return float(accuracy_score(y_true, y_pred))
-
-def calculate_auc_ovo(y_true: np.ndarray, y_pred_proba: np.ndarray, n_classes: int) -> float:
-    """Calculate AUC using One-vs-One strategy"""
-    try:
-        if n_classes > 2:
-            auc = roc_auc_score(y_true, y_pred_proba, multi_class="ovo", average="macro")
-        else:
-            auc = roc_auc_score(y_true, y_pred_proba[:, 1])
-        return float(auc)
-    except Exception as e:
-        print(f"Erro no cálculo do AUC: {e}")
-        return np.nan
-
-def calculate_gmean(y_true: np.ndarray, y_pred: np.ndarray) -> float:
-    """Calculate G-Mean (geometric mean of sensitivities/recalls)"""
-    try:
-        cm = confusion_matrix(y_true, y_pred)
-        sensitivities = []
-        for i in range(len(cm)):
-            tp = cm[i, i]
-            fn = cm[i, :].sum() - tp
-            sensitivity = tp / (tp + fn) if (tp + fn) > 0 else 0
-            sensitivities.append(sensitivity)
-        gmean = np.power(np.prod(sensitivities), 1.0 / len(sensitivities))
-        return float(gmean)
-    except Exception as e:
-        print(f"Erro no cálculo do G-Mean: {e}")
-        return np.nan
-
-def calculate_cross_entropy(y_true: np.ndarray, y_pred_proba: np.ndarray) -> float:
-    """Calculate cross-entropy loss (log loss)"""
-    try:
-        return float(log_loss(y_true, y_pred_proba))
-    except Exception as e:
-        print(f"Erro no cálculo do Cross-Entropy: {e}")
-        return np.nan
-
-def calculate_all_metrics_safe(y_true, y_pred, y_pred_proba, n_classes):
-    """Versão mais segura que calcula métricas individualmente"""
-    metrics = {}
-
-    try:
-        metrics["accuracy"] = calculate_accuracy(y_true, y_pred)
-    except Exception as e:
-        print(f"Erro cálculo accuracy: {e}")
-        metrics["accuracy"] = np.nan
-
-    try:
-        metrics["gmean"] = calculate_gmean(y_true, y_pred)
-    except Exception as e:
-        print(f"Erro cálculo gmean: {e}")
-        metrics["gmean"] = np.nan
-
-    try:
-        metrics["auc_ovo"] = calculate_auc_ovo(y_true, y_pred_proba, n_classes)
-    except Exception as e:
-        print(f"Erro cálculo auc: {e}")
-        metrics["auc_ovo"] = np.nan
-
-    try:
-        metrics["cross_entropy"] = calculate_cross_entropy(y_true, y_pred_proba)
-    except Exception as e:
-        print(f"Erro cálculo cross_entropy: {e}")
-        metrics["cross_entropy"] = np.nan
-
-    return metrics
 
 # Função auxiliar para obter probabilidades de forma segura
 def safe_predict_proba(model, X, n_classes):
@@ -733,7 +663,7 @@ for pkl in pkl_files:
         entry["total_time"] = total_time
 
         # Calcula métricas de qualidade
-        metrics = calculate_all_metrics_safe(
+        metrics = calculate_all_metrics(
             y_true=y_test,
             y_pred=y_pred,
             y_pred_proba=y_pred_proba,
