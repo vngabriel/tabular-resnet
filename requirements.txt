@@ -4,3 +4,10 @@ pandas
 scikit-learn
 optuna
 openml
+xgboost
+catboost
+lightgbm
+autogluon
+auto-sklearn2
+scipy
+scikit-posthocs

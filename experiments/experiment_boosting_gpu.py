@@ -7,7 +7,7 @@ Use this file if you have an NVIDIA GPU available.
 Usage:
     # Enable GPU
     experiment = BoostingExperiment(..., use_gpu=True)
-    
+
     # Or via CLI
     python main_boosting_gpu.py --model catboost --use_gpu
 """
@@ -23,18 +23,21 @@ from evaluation.metrics import calculate_all_metrics
 # Import boosting libraries
 try:
     import xgboost as xgb
+
     XGBOOST_AVAILABLE = True
 except ImportError:
     XGBOOST_AVAILABLE = False
 
 try:
     import catboost as cb
+
     CATBOOST_AVAILABLE = True
 except ImportError:
     CATBOOST_AVAILABLE = False
 
 try:
     import lightgbm as lgb
+
     LIGHTGBM_AVAILABLE = True
 except ImportError:
     LIGHTGBM_AVAILABLE = False
@@ -77,7 +80,7 @@ class BoostingExperimentGPU:
         self.n_trials = n_trials
         self.cv_folds = cv_folds
         self.seed = seed
-        
+
         # GPU settings
         self.use_gpu = use_gpu
         self.gpu_id = gpu_id
@@ -126,19 +129,19 @@ class BoostingExperimentGPU:
             if self.use_gpu:
                 params["device"] = "cuda"
                 params["tree_method"] = "hist"  # GPU-compatible method
-            
+
             model = xgb.XGBClassifier(
                 **params,
                 random_state=self.seed,
                 n_jobs=-1 if not self.use_gpu else 1,
                 verbosity=0,
             )
-            
+
         elif self.model_type == "catboost":
             # Ensure bootstrap_type is set for subsample compatibility
             if "subsample" in params and "bootstrap_type" not in params:
                 params["bootstrap_type"] = "Bernoulli"
-            
+
             # CatBoost GPU settings
             model = cb.CatBoostClassifier(
                 **params,
@@ -148,14 +151,14 @@ class BoostingExperimentGPU:
                 thread_count=-1 if not self.use_gpu else 1,
                 verbose=False,
             )
-            
+
         elif self.model_type == "lightgbm":
             # LightGBM GPU settings
             if self.use_gpu:
                 params["device"] = "gpu"
                 params["gpu_platform_id"] = 0
                 params["gpu_device_id"] = self.gpu_id
-            
+
             model = lgb.LGBMClassifier(
                 **params,
                 random_state=self.seed,
@@ -172,7 +175,9 @@ class BoostingExperimentGPU:
             params = {
                 "n_estimators": trial.suggest_int("n_estimators", 50, 500),
                 "max_depth": trial.suggest_int("max_depth", 3, 10),
-                "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.3, log=True),
+                "learning_rate": trial.suggest_float(
+                    "learning_rate", 0.01, 0.3, log=True
+                ),
                 "subsample": trial.suggest_float("subsample", 0.6, 1.0),
                 "colsample_bytree": trial.suggest_float("colsample_bytree", 0.6, 1.0),
                 "min_child_weight": trial.suggest_int("min_child_weight", 1, 10),
@@ -185,10 +190,12 @@ class BoostingExperimentGPU:
             params = {
                 "iterations": trial.suggest_int("iterations", 50, 500),
                 "depth": trial.suggest_int("depth", 3, 10),
-                "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.3, log=True),
+                "learning_rate": trial.suggest_float(
+                    "learning_rate", 0.01, 0.3, log=True
+                ),
                 "l2_leaf_reg": trial.suggest_float("l2_leaf_reg", 1.0, 10.0),
-                #"bootstrap_type": "Bernoulli",
-                #"subsample": trial.suggest_float("subsample", 0.6, 1.0),
+                # "bootstrap_type": "Bernoulli",
+                # "subsample": trial.suggest_float("subsample", 0.6, 1.0),
                 "colsample_bylevel": trial.suggest_float("colsample_bylevel", 0.6, 1.0),
                 "min_data_in_leaf": trial.suggest_int("min_data_in_leaf", 1, 50),
             }
@@ -197,7 +204,9 @@ class BoostingExperimentGPU:
             params = {
                 "n_estimators": trial.suggest_int("n_estimators", 50, 500),
                 "max_depth": trial.suggest_int("max_depth", 3, 10),
-                "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.3, log=True),
+                "learning_rate": trial.suggest_float(
+                    "learning_rate", 0.01, 0.3, log=True
+                ),
                 "subsample": trial.suggest_float("subsample", 0.6, 1.0),
                 "colsample_bytree": trial.suggest_float("colsample_bytree", 0.6, 1.0),
                 "min_child_samples": trial.suggest_int("min_child_samples", 5, 100),
@@ -264,6 +273,7 @@ class BoostingExperimentGPU:
             y_val_pred = fold_model.predict(X_val_fold)
 
             from evaluation.metrics import calculate_gmean
+
             fold_gmean = calculate_gmean(y_val_fold, y_val_pred)
             cv_scores.append(fold_gmean)
 

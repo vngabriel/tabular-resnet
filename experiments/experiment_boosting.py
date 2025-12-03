@@ -7,6 +7,7 @@ from evaluation.metrics import calculate_all_metrics
 # Import boosting libraries
 try:
     import xgboost as xgb
+
     XGBOOST_AVAILABLE = True
 except ImportError:
     XGBOOST_AVAILABLE = False
@@ -14,6 +15,7 @@ except ImportError:
 
 try:
     import catboost as cb
+
     CATBOOST_AVAILABLE = True
 except ImportError:
     CATBOOST_AVAILABLE = False
@@ -21,6 +23,7 @@ except ImportError:
 
 try:
     import lightgbm as lgb
+
     LIGHTGBM_AVAILABLE = True
 except ImportError:
     LIGHTGBM_AVAILABLE = False
@@ -88,11 +91,17 @@ class BoostingExperiment:
 
         # Check if the required library is available
         if self.model_type == "xgboost" and not XGBOOST_AVAILABLE:
-            raise ImportError("XGBoost is not installed. Install with: pip install xgboost")
+            raise ImportError(
+                "XGBoost is not installed. Install with: pip install xgboost"
+            )
         elif self.model_type == "catboost" and not CATBOOST_AVAILABLE:
-            raise ImportError("CatBoost is not installed. Install with: pip install catboost")
+            raise ImportError(
+                "CatBoost is not installed. Install with: pip install catboost"
+            )
         elif self.model_type == "lightgbm" and not LIGHTGBM_AVAILABLE:
-            raise ImportError("LightGBM is not installed. Install with: pip install lightgbm")
+            raise ImportError(
+                "LightGBM is not installed. Install with: pip install lightgbm"
+            )
 
         # Dataset info
         self.n_features = X_train.shape[1]
@@ -133,11 +142,11 @@ class BoostingExperiment:
                     params["bootstrap_type"] = self.catboost_bootstrap_type
             # For Bayesian (default), don't add subsample or bootstrap_type
             # CatBoost will use defaults which are faster
-            
+
             model = cb.CatBoostClassifier(
                 **params,
                 random_state=self.seed,
-                thread_count=4,#-1,
+                thread_count=4,  # -1,
                 verbose=False,
             )
         elif self.model_type == "lightgbm":
@@ -157,7 +166,9 @@ class BoostingExperiment:
             params = {
                 "n_estimators": trial.suggest_int("n_estimators", 50, 500),
                 "max_depth": trial.suggest_int("max_depth", 3, 10),
-                "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.3, log=True),
+                "learning_rate": trial.suggest_float(
+                    "learning_rate", 0.01, 0.3, log=True
+                ),
                 "subsample": trial.suggest_float("subsample", 0.6, 1.0),
                 "colsample_bytree": trial.suggest_float("colsample_bytree", 0.6, 1.0),
                 "min_child_weight": trial.suggest_int("min_child_weight", 1, 10),
@@ -169,16 +180,22 @@ class BoostingExperiment:
         elif self.model_type == "catboost":
             # CatBoost requires bootstrap_type to be set when using subsample
             # Options: "Bayesian" (default, no subsample), "Bernoulli" or "MVS" (with subsample)
-            
+
             if self.catboost_bootstrap_type == "Bayesian":
                 # Bayesian: Fastest, no subsample, uses bagging_temperature instead
                 params = {
                     "iterations": trial.suggest_int("iterations", 50, 500),
                     "depth": trial.suggest_int("depth", 3, 10),
-                    "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.3, log=True),
+                    "learning_rate": trial.suggest_float(
+                        "learning_rate", 0.01, 0.3, log=True
+                    ),
                     "l2_leaf_reg": trial.suggest_float("l2_leaf_reg", 1.0, 10.0),
-                    "bagging_temperature": trial.suggest_float("bagging_temperature", 0.0, 1.0),
-                    "colsample_bylevel": trial.suggest_float("colsample_bylevel", 0.6, 1.0),
+                    "bagging_temperature": trial.suggest_float(
+                        "bagging_temperature", 0.0, 1.0
+                    ),
+                    "colsample_bylevel": trial.suggest_float(
+                        "colsample_bylevel", 0.6, 1.0
+                    ),
                     "min_data_in_leaf": trial.suggest_int("min_data_in_leaf", 1, 50),
                 }
             else:
@@ -186,11 +203,15 @@ class BoostingExperiment:
                 params = {
                     "iterations": trial.suggest_int("iterations", 50, 500),
                     "depth": trial.suggest_int("depth", 3, 10),
-                    "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.3, log=True),
+                    "learning_rate": trial.suggest_float(
+                        "learning_rate", 0.01, 0.3, log=True
+                    ),
                     "l2_leaf_reg": trial.suggest_float("l2_leaf_reg", 1.0, 10.0),
                     "bootstrap_type": self.catboost_bootstrap_type,
                     "subsample": trial.suggest_float("subsample", 0.6, 1.0),
-                    "colsample_bylevel": trial.suggest_float("colsample_bylevel", 0.6, 1.0),
+                    "colsample_bylevel": trial.suggest_float(
+                        "colsample_bylevel", 0.6, 1.0
+                    ),
                     "min_data_in_leaf": trial.suggest_int("min_data_in_leaf", 1, 50),
                 }
 
@@ -198,7 +219,9 @@ class BoostingExperiment:
             params = {
                 "n_estimators": trial.suggest_int("n_estimators", 50, 500),
                 "max_depth": trial.suggest_int("max_depth", 3, 10),
-                "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.3, log=True),
+                "learning_rate": trial.suggest_float(
+                    "learning_rate", 0.01, 0.3, log=True
+                ),
                 "subsample": trial.suggest_float("subsample", 0.6, 1.0),
                 "colsample_bytree": trial.suggest_float("colsample_bytree", 0.6, 1.0),
                 "min_child_samples": trial.suggest_int("min_child_samples", 5, 100),
@@ -226,7 +249,7 @@ class BoostingExperiment:
                 y_train,
                 eval_set=(X_val, y_val),
                 verbose=False,
-                #early_stopping_rounds=50,  # Add early stopping to prevent hanging
+                # early_stopping_rounds=50,  # Add early stopping to prevent hanging
                 use_best_model=True,  # Use best model from validation
             )
 
@@ -235,7 +258,7 @@ class BoostingExperiment:
                 X_train,
                 y_train,
                 eval_set=[(X_val, y_val)],
-                #callbacks=[lgb.early_stopping(stopping_rounds=50, verbose=False)],
+                # callbacks=[lgb.early_stopping(stopping_rounds=50, verbose=False)],
             )
 
         return model
